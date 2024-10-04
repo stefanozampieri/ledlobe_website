@@ -1,0 +1,108 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+/* Header */
+header {
+    background-color: #1f1f1f;
+    padding: 10px;
+}
+
+.logo img {
+    height: 50px;
+}
+
+/* Hero Image */
+.hero-image img {
+    width: 100%;
+    height: auto;
+    filter: brightness(80%);
+}
+
+/* Product Section */
+.product-section {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.product-image img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    filter: brightness(80%);
+}
+
+.product-config {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.product-config h2 {
+    margin-top: 0;
+    color: #fff;
+}
+
+.product-config label {
+    display: block;
+    margin-top: 10px;
+    color: #e0e0e0;
+}
+
+.product-config select,
+.product-config input {
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+#buy-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #1e88e5;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+#buy-button:hover {
+    background-color: #1565c0;
+}
+
+/* Footer */
+footer {
+    background-color: #1f1f1f;
+    padding: 20px;
+    text-align: center;
+}
+
+footer h3 {
+    margin-top: 0;
+    color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .product-section {
+        flex-direction: column;
+    }
+
+    .product-config {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+}
+
+/* Add this to center your content with margins */
+.container {
+    max-width: 1200px; /* Adjust the width to your preference */
+    margin: 0 auto; /* Centers the content horizontally */
+    padding: 0 20px; /* Adds padding for some spacing on the sides */
+}
