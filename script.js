@@ -24,14 +24,15 @@ document.getElementById('ledlobe-buy-button').addEventListener('click', function
     var color = document.getElementById('color-select').value;
     var quantity = parseInt(document.getElementById('quantity-select').value);
 
-    // Map each color to its corresponding Price ID in Stripe
-    var priceIdMap = {
-        red: 'price_1Q4rw9Dw0JoxpcCwRed', // Replace with actual Price ID for Red
-        blue: 'price_1Q4rw9Dw0JoxpcCwBlue', // Replace with actual Price ID for Blue
-        green: 'price_1Q4rw9Dw0JoxpcCwGreen', // Replace with actual Price ID for Green
-        yellow: 'price_1Q4rw9Dw0JoxpcCwYellow', // Replace with actual Price ID for Yellow
-        pink: 'price_1Q4rw9Dw0JoxpcCwPink'  // Replace with actual Price ID for Pink
-    };
+            // Map each color to its corresponding Product ID in Stripe
+            var priceIdMap = {
+                blue: 'prod_QwlwwBZs1kltVf',   // Correct Price ID for Blue
+                green: 'prod_QwltVqnxwEn9i3',  // Correct Price ID for Green
+                yellow: 'prod_Qwlt2o3BflWb9x', // Correct Price ID for Yellow
+                pink: 'prod_Qwlgasjf1G0Xyp',   // Correct Price ID for Pink
+                red: 'prod_QwlfehZSBWH1cf'     // Correct Price ID for Red
+            };
+
 
     var priceId = priceIdMap[color]; // Get the correct price ID based on color selection
 
