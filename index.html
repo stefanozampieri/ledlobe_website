@@ -35,20 +35,18 @@
     <div class="product-config">
         <h2>LED Lobe</h2>
         <form id="ledlobe-form">
-            <label for="color">Choose a color:</label>
-            <select id="color" name="color">
-                <option value="red">Red</option>
-                <option value="blue">Blue</option>
-                <option value="green">Green</option>
-                <option value="yellow">Yellow</option>
-                <option value="pink">Pink</option>
+            <label for="quantity-select">Choose a quantity:</label>
+            <select id="quantity-select" name="quantity">
+                <option value="1" data-price="24.90">1 (24.90 CHF per unit)</option>
+                <option value="10" data-price="19.90">10 (19.90 CHF per unit)</option>
+                <option value="25" data-price="17.90">25 (17.90 CHF per unit)</option>
+                <option value="50" data-price="14.90">50 (14.90 CHF per unit)</option>
+                <option value="100" data-price="11.90">100 (11.90 CHF per unit)</option>
+                <option value="1000" data-price="10.00">1000 (10.00 CHF per unit)</option>
             </select>
 
-            <label for="quantity">Quantity:</label>
-            <input type="number" id="ledlobe-quantity" name="quantity" value="1" min="1">
-
             <!-- Price Placeholder -->
-            <p id="ledlobe-price-display">Price: $50</p>
+            <p id="ledlobe-price-display">Unit price: 24.90 CHF</p>
 
             <button type="button" id="ledlobe-buy-button">Buy LED Lobe</button>
         </form>
@@ -67,7 +65,7 @@
             <input type="number" id="batteries-quantity" name="quantity" value="1" min="1">
 
             <!-- Price Placeholder -->
-            <p id="batteries-price-display">Price: $5</p>
+            <p id="batteries-price-display">Price: 2.90 CHF per unit</p>
 
             <button type="button" id="batteries-buy-button">Buy Batteries</button>
         </form>
