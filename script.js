@@ -1,23 +1,32 @@
 // Stripe Initialization
 var stripe = Stripe('pk_live_51Q4rw9Dw0JoxpcCwqnOoopUNUXpy6bLBRVMG6nzUCRnBiKfa3fRgx5ytH5WiWnDM8LIGoLwKT4CMPORpSDptIGcl0091WSgZFc'); // Replace with your actual publishable key
 
-// Update the price display when the quantity is selected for LED Lobe
+// Update the price display when the quantity is selected
 document.getElementById('quantity-select').addEventListener('change', function() {
     var selectedOption = this.options[this.selectedIndex];
     var unitPrice = selectedOption.getAttribute('data-price');
     document.getElementById('ledlobe-price-display').innerText = `Unit price: ${unitPrice} CHF`;
 });
 
-// Handle LED Lobe purchase with quantity-based pricing
+// Handle LED Lobe purchase
 document.getElementById('ledlobe-buy-button').addEventListener('click', function() {
+    var color = document.getElementById('color-select').value;
     var quantity = parseInt(document.getElementById('quantity-select').value);
 
-    // Assume a single price ID for the LED Lobe product, handle quantity-based pricing with Stripe directly
-    var ledlobePriceId = 'price_1Q4rw9Dw0JoxpcCwLedLobe'; // Replace with the actual price ID for LED Lobe
+    // Map each color to its corresponding Price ID in Stripe
+    var priceIdMap = {
+        red: 'price_1Q4rw9Dw0JoxpcCwRed', // Replace with actual Price ID for Red
+        blue: 'price_1Q4rw9Dw0JoxpcCwBlue', // Replace with actual Price ID for Blue
+        green: 'price_1Q4rw9Dw0JoxpcCwGreen', // Replace with actual Price ID for Green
+        yellow: 'price_1Q4rw9Dw0JoxpcCwYellow', // Replace with actual Price ID for Yellow
+        pink: 'price_1Q4rw9Dw0JoxpcCwPink'  // Replace with actual Price ID for Pink
+    };
+
+    var priceId = priceIdMap[color]; // Get the correct price ID for the selected color
 
     stripe.redirectToCheckout({
         lineItems: [{
-            price: ledlobePriceId, // Price ID remains the same, Stripe will charge based on quantity
+            price: priceId, // Use the color-specific price ID
             quantity: quantity
         }],
         mode: 'payment',
