@@ -106,3 +106,47 @@ footer h3 {
     margin: 0 auto; /* Centers the content horizontally */
     padding: 0 20px; /* Adds padding for some spacing on the sides */
 }
+
+/* Style adjustments for multiple product sections if needed */
+.product-section {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    margin-bottom: 40px; /* Add space between product sections */
+}
+
+.product-image img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    filter: brightness(80%);
+}
+
+.product-config {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.product-config h2 {
+    color: #fff;
+}
+
+.product-config label,
+.product-config input {
+    display: block;
+    margin-top: 10px;
+    color: #e0e0e0;
+}
+
+#ledlobe-buy-button, #batteries-buy-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #1e88e5;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+#ledlobe-buy-button:hover, #batteries-buy-button:hover {
+    background-color: #1565c0;
+}
