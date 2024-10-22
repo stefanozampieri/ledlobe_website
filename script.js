@@ -67,7 +67,7 @@ document.getElementById('ledlobe-buy-button').addEventListener('click', function
         }],
         mode: 'payment',
         successUrl: 'https://ledlobe.com/success.html',
-        cancelUrl: 'https://ledlobe.com/cancel.html',
+        cancelUrl: 'https://ledlobe.com/',
         shippingAddressCollection: {
             allowedCountries: ['US', 'CH', 'FR', 'DE'] // Specify the countries you ship to
         }
@@ -116,7 +116,7 @@ document.getElementById('batteries-buy-button').addEventListener('click', functi
         }],
         mode: 'payment',
         successUrl: 'https://ledlobe.com/success.html',
-        cancelUrl: 'https://ledlobe.com/cancel.html',
+        cancelUrl: 'https://ledlobe.com/',
         shippingAddressCollection: {
             allowedCountries: ['US', 'CH', 'FR', 'DE'] // Specify the countries you ship to
         }
