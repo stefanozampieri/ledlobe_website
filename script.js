@@ -1,47 +1,32 @@
 // Stripe Initialization
 var stripe = Stripe('pk_live_51Q4rw9Dw0JoxpcCwqnOoopUNUXpy6bLBRVMG6nzUCRnBiKfa3fRgx5ytH5WiWnDM8LIGoLwKT4CMPORpSDptIGcl0091WSgZFc'); // Replace with your actual publishable key
 
-// Map each color and quantity to its corresponding Price ID in Stripe
+// Map each color and quantity to its corresponding Price ID in Stripe (for quantities 1, 50, and 100)
 var priceIdMap = {
     blue: {
         1: 'price_1Q4sOGDw0JoxpcCwr5X4kXYK',    // Replace with actual Price ID for 1 unit of Blue
-        10: 'price_1QCpo5Dw0JoxpcCwDCEDi6bc',  // Replace with actual Price ID for 10 units of Blue
-        25: 'price_1QCpphDw0JoxpcCws8cFUoy6',  // Replace with actual Price ID for 25 units of Blue
-        50: 'price_1QCpq5Dw0JoxpcCwTFRehqfe',  // Replace with actual Price ID for 50 units of Blue
-        100: 'price_1QCpqZDw0JoxpcCwwDhQn4jG',// Replace with actual Price ID for 100 units of Blue
-        1000: 'price_1QCpr0Dw0JoxpcCwEz2gn1Sz' // Replace with actual Price ID for 1000 units of Blue
+        50: 'price_1QCqhfDw0JoxpcCw0ORGt3np',  // Replace with actual Price ID for 50 units of Blue
+        100: 'price_1QCqvlDw0JoxpcCwSUlFNJb2' // Replace with actual Price ID for 100 units of Blue
     },
     green: {
-        1: 'price_xxx_green_1',
-        10: 'price_xxx_green_10',
-        25: 'price_xxx_green_25',
-        50: 'price_xxx_green_50',
-        100: 'price_xxx_green_100',
-        1000: 'price_xxx_green_1000'
+        1: 'price_1Q4sM2Dw0JoxpcCwrIOncYR2',
+        50: 'price_1QCqkODw0JoxpcCwBjsStbRT',
+        100: 'price_1QCqurDw0JoxpcCwWLxzGcdP'
     },
     yellow: {
-        1: 'price_xxx_yellow_1',
-        10: 'price_xxx_yellow_10',
-        25: 'price_xxx_yellow_25',
-        50: 'price_xxx_yellow_50',
-        100: 'price_xxx_yellow_100',
-        1000: 'price_xxx_yellow_1000'
+        1: 'price_1Q4sLFDw0JoxpcCwuVCJlXr8',
+        50: 'price_1QCqlIDw0JoxpcCwsrPP4SyA',
+        100: 'price_1QCqtzDw0JoxpcCwran2c1F7'
     },
     pink: {
-        1: 'price_xxx_pink_1',
-        10: 'price_xxx_pink_10',
-        25: 'price_xxx_pink_25',
-        50: 'price_xxx_pink_50',
-        100: 'price_xxx_pink_100',
-        1000: 'price_xxx_pink_1000'
+        1: 'price_1Q4s9CDw0JoxpcCwvxkPOdIS',
+        50: 'price_1QCqnDDw0JoxpcCwD6wJGdbR',
+        100: 'price_1QCqsoDw0JoxpcCwo9tDocTd'
     },
     red: {
-        1: 'price_xxx_red_1',
-        10: 'price_xxx_red_10',
-        25: 'price_xxx_red_25',
-        50: 'price_xxx_red_50',
-        100: 'price_xxx_red_100',
-        1000: 'price_xxx_red_1000'
+        1: 'price_1Q4s8DDw0JoxpcCwMrjcqak4',
+        50: 'price_1QCqooDw0JoxpcCwkgtaCNTH',
+        100: 'price_1QCqrvDw0JoxpcCwY71nzGPZ'
     }
 };
 
@@ -78,7 +63,7 @@ document.getElementById('ledlobe-buy-button').addEventListener('click', function
     stripe.redirectToCheckout({
         lineItems: [{
             price: priceId, // Use the color and quantity-specific Price ID
-            quantity: 1 // Quantity is 1 because the Price ID already reflects the total price for that package
+            quantity: 1 // Set the quantity to 1 because the price is for the selected package
         }],
         mode: 'payment',
         successUrl: 'https://ledlobe.com/success.html',
