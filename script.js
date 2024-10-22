@@ -86,7 +86,7 @@ document.getElementById('batteries-buy-button').addEventListener('click', functi
         return;
     }
 
-    var batteriesPriceId = 'price_1Q4rw9Dw0JoxpcCwBatteries'; // Replace with actual price ID for the batteries
+    var batteriesPriceId = 'price_1QCqNWDw0JoxpcCwc2CY4mQR'; // Replace with actual price ID for the batteries
 
     stripe.redirectToCheckout({
         lineItems: [{
