@@ -152,7 +152,7 @@ main {
     padding: 0 var(--container-padding);
     max-width: var(--max-width);
     margin: 0 auto;
-    min-height: calc(100vh - 60px);
+    min-height: calc(50vh - 30px);
 }
 
 .hero-content {
@@ -188,7 +188,7 @@ main {
 .hero-image img {
     width: 100%;
     height: auto;
-    max-height: 80vh;
+    max-height: 40vh;
     object-fit: contain;
     position: relative;
 }
