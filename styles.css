@@ -141,18 +141,18 @@ body {
 
 /* Main Content */
 main {
-    margin-top: 60px; /* Height of the navbar */
+    margin-top: 60px;
 }
 
-/* Hero Section - Updated */
+/* Hero Section - Updated for proper image handling */
 .hero {
     display: flex;
-    align-items: stretch;
+    align-items: center;
     gap: 4rem;
     padding: 0 var(--container-padding);
     max-width: var(--max-width);
     margin: 0 auto;
-    height: calc(100vh - 60px); /* Changed from min-height to height */
+    min-height: calc(100vh - 60px);
 }
 
 .hero-content {
@@ -178,19 +178,19 @@ main {
 
 .hero-image {
     flex: 1;
-    max-width: 45%; /* Changed from 50% to 45% */
+    max-width: 45%;
     position: relative;
-    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .hero-image img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    object-position: center; /* Added this line */
+    height: auto;
+    max-height: 80vh;
+    object-fit: contain;
+    position: relative;
 }
 
 /* Products Section */
@@ -219,7 +219,7 @@ main {
 
 .product-image {
     width: 100%;
-    padding-top: 75%; /* 4:3 Aspect ratio */
+    padding-top: 75%;
     position: relative;
 }
 
@@ -229,7 +229,9 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    background-color: white;
+    padding: 1rem;
 }
 
 .product-details {
@@ -332,7 +334,7 @@ footer {
 @media (max-width: 768px) {
     .hero {
         flex-direction: column;
-        height: auto; /* Changed from min-height to height */
+        min-height: auto;
         padding: 0;
     }
     
@@ -348,12 +350,12 @@ footer {
     
     .hero-image {
         max-width: 100%;
-        height: 50vh;
-        position: relative;
+        height: auto;
+        padding: 2rem;
     }
     
     .hero-image img {
-        position: relative;
+        max-height: 50vh;
     }
     
     .products {
