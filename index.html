@@ -1,99 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Your Product Page</title>
-        <link rel="stylesheet" href="styles.css">
-        <!-- Link to your favicon.png -->
-        <link rel="icon" href="Favicon.png" type="image/png">
-        <!-- Include Stripe.js -->
-        <script src="https://js.stripe.com/v3/"></script>
-    </head>
-    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LedLobe Shop</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="Favicon.png" type="image/png">
+    <script src="https://js.stripe.com/v3/"></script>
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
 <body>
-    <!-- Top Banner -->
-    <header>
-        <div class="logo">
-            <img src="logo_cropped.png" alt="Logo">
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <img src="logo_cropped.png" alt="Logo">
+            </div>
+            <div class="cart-icon" id="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cart-count">0</span>
+            </div>
         </div>
-    </header>
+    </nav>
 
-<!-- Hero Section -->
-<section class="hero-section">
-    <div class="hero-text">
-        <h1>Wholesale LedLobe earrings for Festivals and more</h1>
-        <p>Our <strong>Ledlobe</strong> earrings lights are available for wholesale purchase, perfect for selling at festivals, parties, and events. Choose and buy easily from bulk options of <strong>1</strong> sample, <strong>50</strong>, or <strong>100</strong> units at discounted prices.</p>
-        <p>For specific requests or larger orders, please <strong>contact us directly at stefano.zampieri@ledlobe.com</strong>.</p>
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart" id="close-cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-total">
+            <h4>Total: <span id="cart-total">0.00 CHF</span></h4>
+            <button class="checkout-button" id="checkout-button">Checkout</button>
+        </div>
     </div>
-    <div class="hero-image">
-        <img src="main_image.png" alt="Hero Image">
-    </div>
-</section>
 
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Wholesale LedLobe Earrings</h1>
+                <p>Perfect for festivals, parties, and events. Available in bulk with special discounts.</p>
+            </div>
+            <div class="hero-image">
+                <img src="main_image.png" alt="LED earrings">
+            </div>
+        </section>
 
+        <section class="products">
+            <div class="product-card" id="ledlobe">
+                <div class="product-image">
+                    <img src="Cropped_LEDLOBE_FIVEPACK.png" alt="LED Lobe">
+                </div>
+                <div class="product-details">
+                    <h2>LED Lobe</h2>
+                    <div class="product-options">
+                        <select id="color-select" class="select-style">
+                            <option value="red">Red</option>
+                            <option value="blue">Blue</option>
+                            <option value="green">Green</option>
+                            <option value="yellow">Yellow</option>
+                            <option value="pink">Pink</option>
+                        </select>
+                        <select id="quantity-select" class="select-style">
+                            <option value="1" data-price="24.90">1 (24.90 CHF)</option>
+                            <option value="50" data-price="14.90">50 (14.90 CHF)</option>
+                            <option value="100" data-price="11.90">100 (11.90 CHF)</option>
+                        </select>
+                    </div>
+                    <p class="price" id="ledlobe-price-display">24.90 CHF per unit</p>
+                    <button class="add-to-cart-btn" data-product="ledlobe">Add to Cart</button>
+                </div>
+            </div>
 
-   <!-- LED Lobe Product Section -->
-<section class="product-section">
-    <div class="product-image">
-        <img src="Cropped_LEDLOBE_FIVEPACK.png" alt="Product Image">
-    </div>
-    <div class="product-config">
-        <h2>LED Lobe</h2>
-        <form id="ledlobe-form">
-            <label for="color-select">Choose a color:</label>
-            <select id="color-select" name="color">
-                <option value="red">Red</option>
-                <option value="blue">Blue</option>
-                <option value="green">Green</option>
-                <option value="yellow">Yellow</option>
-                <option value="pink">Pink</option>
-            </select>
+            <div class="product-card" id="batteries">
+                <div class="product-image">
+                    <img src="BATTERY_SINGLEPACK.jpg" alt="Batteries">
+                </div>
+                <div class="product-details">
+                    <h2>Pair of Batteries CR1025</h2>
+                    <div class="product-options">
+                        <input type="number" id="batteries-quantity" value="1" min="1" class="quantity-input">
+                    </div>
+                    <p class="price" id="batteries-price-display">2.90 CHF per unit</p>
+                    <button class="add-to-cart-btn" data-product="batteries">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+    </main>
 
-            <!-- Quantity Dropdown for LED Lobe -->
-            <label for="quantity-select">Choose a quantity:</label>
-            <select id="quantity-select" name="quantity">
-                <option value="1" data-price="24.90">1 (24.90 CHF per unit)</option>
-                <option value="50" data-price="14.90">50 (14.90 CHF per unit)</option>
-                <option value="100" data-price="11.90">100 (11.90 CHF per unit)</option>
-            </select>
-
-
-            <!-- Price Placeholder -->
-            <p id="ledlobe-price-display">Unit price: 24.90 CHF</p>
-
-            <button type="button" id="ledlobe-buy-button">Buy Ledlobe</button>
-        </form>
-    </div>
-</section>
-
-
-<!-- Pair of Batteries CR1025 Product Section -->
-<section class="product-section">
-    <div class="product-image">
-        <img src="BATTERY_SINGLEPACK.jpg" alt="Batteries Image">
-    </div>
-    <div class="product-config">
-        <h2>Pair of Batteries CR1025</h2>
-        <form id="batteries-form">
-            <label for="batteries-quantity">Quantity:</label>
-            <input type="number" id="batteries-quantity" name="quantity" value="1" min="1">
-
-            <!-- Price Placeholder -->
-            <p id="batteries-price-display">Price: 2.90 CHF per unit</p>
-
-            <button type="button" id="batteries-buy-button">Buy Batteries</button>
-        </form>
-    </div>
-</section>
-
-
-    <!-- Contact Information -->
     <footer>
-        <h3>Contact Us</h3>
-        <p>Email: stefano.zampieri@ledlobe.com</p>
+        <div class="footer-content">
+            <div class="contact">
+                <h3>Contact Us</h3>
+                <p>Email: stefano.zampieri@ledlobe.com</p>
+            </div>
+            <div class="wholesale">
+                <p>For larger orders, please contact us directly.</p>
+            </div>
+        </div>
     </footer>
 
-    <!-- Include your custom JavaScript file -->
     <script src="script.js"></script>
 </body>
 </html>
