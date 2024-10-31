@@ -43,28 +43,36 @@ const cartItems = document.getElementById('cart-items');
 const cartCount = document.getElementById('cart-count');
 const cartTotal = document.getElementById('cart-total');
 const checkoutButton = document.getElementById('checkout-button');
-const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
 
-// Event Listeners
-cartIcon.addEventListener('click', openCart);
-closeCart.addEventListener('click', closeCartSidebar);
-checkoutButton.addEventListener('click', handleCheckout);
-
-addToCartButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const productType = button.getAttribute('data-product');
-        addToCart(productType);
+// Initialize event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    // Cart open/close listeners
+    cartIcon.addEventListener('click', () => {
+        cartSidebar.classList.add('active');
     });
+
+    closeCart.addEventListener('click', () => {
+        cartSidebar.classList.remove('active');
+    });
+
+    // Add to cart listeners for both products
+    const ledlobeAddButton = document.querySelector('[data-product="ledlobe"]');
+    const batteriesAddButton = document.querySelector('[data-product="batteries"]');
+
+    if (ledlobeAddButton) {
+        ledlobeAddButton.addEventListener('click', () => addToCart('ledlobe'));
+    }
+
+    if (batteriesAddButton) {
+        batteriesAddButton.addEventListener('click', () => addToCart('batteries'));
+    }
+
+    // Checkout button listener
+    checkoutButton.addEventListener('click', handleCheckout);
+
+    // Initialize cart display
+    updateCartDisplay();
 });
-
-// Cart Functions
-function openCart() {
-    cartSidebar.classList.add('active');
-}
-
-function closeCartSidebar() {
-    cartSidebar.classList.remove('active');
-}
 
 function addToCart(productType) {
     let item;
@@ -81,7 +89,8 @@ function addToCart(productType) {
             quantity: quantity,
             unitPrice: unitPrice,
             priceId: priceIdMap[color][quantity],
-            totalPrice: quantity * unitPrice
+            totalPrice: quantity * unitPrice,
+            displayName: `LED Lobe (${color}, ${quantity} units)`
         };
     } else if (productType === 'batteries') {
         const quantity = parseInt(document.getElementById('batteries-quantity').value);
@@ -92,13 +101,16 @@ function addToCart(productType) {
             quantity: quantity,
             unitPrice: unitPrice,
             priceId: batteriesPriceId,
-            totalPrice: quantity * unitPrice
+            totalPrice: quantity * unitPrice,
+            displayName: `Batteries (${quantity} pairs)`
         };
     }
 
-    cart.push(item);
-    updateCartDisplay();
-    openCart();
+    if (item) {
+        cart.push(item);
+        updateCartDisplay();
+        cartSidebar.classList.add('active'); // Show cart after adding item
+    }
 }
 
 function updateCartDisplay() {
@@ -116,39 +128,27 @@ function updateCartDisplay() {
         const cartItem = document.createElement('div');
         cartItem.classList.add('cart-item');
 
-        let itemHTML = '';
-        if (item.type === 'ledlobe') {
-            itemHTML = `
-                <div class="item-details">
-                    <h4>LED Lobe - ${item.color}</h4>
-                    <p>${item.quantity} units × ${item.unitPrice} CHF</p>
-                </div>
-                <div class="item-price">
-                    <span>${item.totalPrice.toFixed(2)} CHF</span>
-                    <button onclick="removeFromCart(${index})" class="remove-item">&times;</button>
-                </div>
-            `;
-        } else {
-            itemHTML = `
-                <div class="item-details">
-                    <h4>Batteries CR1025</h4>
-                    <p>${item.quantity} pairs × ${item.unitPrice} CHF</p>
-                </div>
-                <div class="item-price">
-                    <span>${item.totalPrice.toFixed(2)} CHF</span>
-                    <button onclick="removeFromCart(${index})" class="remove-item">&times;</button>
-                </div>
-            `;
-        }
+        cartItem.innerHTML = `
+            <div class="item-details">
+                <h4>${item.displayName}</h4>
+                <p>${item.quantity} × ${item.unitPrice.toFixed(2)} CHF</p>
+            </div>
+            <div class="item-price">
+                <span>${item.totalPrice.toFixed(2)} CHF</span>
+                <button class="remove-item" data-index="${index}">&times;</button>
+            </div>
+        `;
 
-        cartItem.innerHTML = itemHTML;
+        // Add remove button listener
+        cartItem.querySelector('.remove-item').addEventListener('click', () => removeFromCart(index));
+
         cartItems.appendChild(cartItem);
         total += item.totalPrice;
     });
 
     // Update total display
     cartTotal.textContent = `${total.toFixed(2)} CHF`;
-    
+
     // Show/hide checkout button
     checkoutButton.style.display = cart.length > 0 ? 'block' : 'none';
 }
@@ -159,11 +159,12 @@ function removeFromCart(index) {
 }
 
 async function handleCheckout() {
-    // Prepare line items for Stripe
-    const lineItems = cart.map(item => ({
-        price: item.priceId,
-        quantity: 1 // Since our price IDs already include the quantity
-    }));
+    const lineItems = cart.map(item => {
+        return {
+            price: item.priceId,
+            quantity: 1 // Since our price IDs already include the quantity
+        };
+    });
 
     try {
         const result = await stripe.redirectToCheckout({
@@ -185,21 +186,7 @@ async function handleCheckout() {
     }
 }
 
-// Update total price displays when quantities change
-document.getElementById('quantity-select').addEventListener('change', function() {
-    const quantitySelect = this;
-    const unitPrice = parseFloat(quantitySelect.options[quantitySelect.selectedIndex].getAttribute('data-price'));
-    const quantity = parseInt(quantitySelect.value);
-    document.getElementById('ledlobe-price-display').textContent = `${unitPrice} CHF per unit`;
-});
-
-document.getElementById('batteries-quantity').addEventListener('input', function() {
-    const quantity = parseInt(this.value) || 0;
-    const totalPrice = (quantity * 2.90).toFixed(2);
-    document.getElementById('batteries-price-display').textContent = `2.90 CHF per unit`;
-});
-
-// Add some CSS for the cart items
+// Add some additional styles dynamically
 const style = document.createElement('style');
 style.textContent = `
     .cart-item {
@@ -241,3 +228,24 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// Initialize product price displays
+document.addEventListener('DOMContentLoaded', () => {
+    // Update LED Lobe price display
+    const quantitySelect = document.getElementById('quantity-select');
+    if (quantitySelect) {
+        quantitySelect.addEventListener('change', () => {
+            const price = quantitySelect.options[quantitySelect.selectedIndex].getAttribute('data-price');
+            document.getElementById('ledlobe-price-display').textContent = `${price} CHF per unit`;
+        });
+    }
+
+    // Update Batteries price display
+    const batteriesQuantity = document.getElementById('batteries-quantity');
+    if (batteriesQuantity) {
+        batteriesQuantity.addEventListener('input', () => {
+            const quantity = parseInt(batteriesQuantity.value) || 0;
+            document.getElementById('batteries-price-display').textContent = `2.90 CHF per unit`;
+        });
+    }
+});
