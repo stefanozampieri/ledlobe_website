@@ -152,7 +152,7 @@ main {
     padding: 0 var(--container-padding);
     max-width: var(--max-width);
     margin: 0 auto;
-    min-height: calc(100vh - 60px);
+    height: calc(100vh - 60px); /* Changed from min-height to height */
 }
 
 .hero-content {
@@ -178,7 +178,7 @@ main {
 
 .hero-image {
     flex: 1;
-    max-width: 50%;
+    max-width: 45%; /* Changed from 50% to 45% */
     position: relative;
     overflow: hidden;
 }
@@ -190,6 +190,7 @@ main {
     position: absolute;
     top: 0;
     left: 0;
+    object-position: center; /* Added this line */
 }
 
 /* Products Section */
@@ -331,7 +332,7 @@ footer {
 @media (max-width: 768px) {
     .hero {
         flex-direction: column;
-        min-height: auto;
+        height: auto; /* Changed from min-height to height */
         padding: 0;
     }
     
