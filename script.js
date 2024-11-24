@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (quantitySelect) {
         quantitySelect.addEventListener('change', () => {
             const price = quantitySelect.options[quantitySelect.selectedIndex].getAttribute('data-price');
-            document.getElementById('ledlobe-price-display').textContent = `${price} CHF per unit`;
+            document.getElementById('ledlobe-price-display').textContent = `${price} CHF per box containing a pair`;
         });
     }
 
@@ -245,7 +245,156 @@ document.addEventListener('DOMContentLoaded', () => {
     if (batteriesQuantity) {
         batteriesQuantity.addEventListener('input', () => {
             const quantity = parseInt(batteriesQuantity.value) || 0;
-            document.getElementById('batteries-price-display').textContent = `2.90 CHF per unit`;
+            document.getElementById('batteries-price-display').textContent = `2.90 CHF per pair`;
         });
     }
+});
+
+// Add this to your script.js file
+
+function initializeCarousel(productId, images) {
+    const productCard = document.getElementById(productId);
+    if (!productCard) {
+        console.error(`Product card with id ${productId} not found`);
+        return;
+    }
+
+    const productImage = productCard.querySelector('.product-image');
+    if (!productImage) {
+        console.error(`Product image container not found in ${productId}`);
+        return;
+    }
+
+    console.log(`Initializing carousel for ${productId} with images:`, images);
+
+    // Create carousel HTML structure
+    productImage.innerHTML = `
+        <div class="carousel-container">
+            <div class="carousel-track"></div>
+            ${images.length > 1 ? `
+                <button class="carousel-button prev" aria-label="Previous image">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-button next" aria-label="Next image">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-dots"></div>
+            ` : ''}
+        </div>
+    `;
+
+    const track = productImage.querySelector('.carousel-track');
+    const dotsContainer = productImage.querySelector('.carousel-dots');
+    
+    // Add images to track
+    images.forEach((imgSrc, index) => {
+        console.log(`Adding image ${index + 1}:`, imgSrc);
+        
+        // Add image slide
+        const slide = document.createElement('div');
+        slide.className = 'carousel-slide';
+        slide.innerHTML = `<img src="${imgSrc}" alt="Product view ${index + 1}" onerror="console.error('Failed to load image:', this.src)">`;
+        track.appendChild(slide);
+
+        // Add dot indicator only if multiple images
+        if (images.length > 1) {
+            const dot = document.createElement('button');
+            dot.className = 'carousel-dot';
+            dot.setAttribute('aria-label', `Go to image ${index + 1}`);
+            dotsContainer.appendChild(dot);
+        }
+    });
+
+    let currentSlide = 0;
+    const slides = track.querySelectorAll('.carousel-slide');
+    const dots = dotsContainer?.querySelectorAll('.carousel-dot') || [];
+    
+    console.log(`Found ${slides.length} slides and ${dots.length} dots`);
+
+    // Initialize first slide
+    slides[0].classList.add('active');
+    if (dots.length > 0) {
+        dots[0].classList.add('active');
+    }
+
+    // Only set up navigation if there are multiple images
+    if (images.length > 1) {
+        const prevButton = productImage.querySelector('.carousel-button.prev');
+        const nextButton = productImage.querySelector('.carousel-button.next');
+
+        prevButton.addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            updateCarousel();
+        });
+
+        nextButton.addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            updateCarousel();
+        });
+
+        // Add dot click handlers
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                updateCarousel();
+            });
+        });
+
+        // Add swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        productImage.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        productImage.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const difference = touchStartX - touchEndX;
+
+            if (Math.abs(difference) > swipeThreshold) {
+                if (difference > 0) {
+                    // Swipe left - next slide
+                    currentSlide = (currentSlide + 1) % slides.length;
+                } else {
+                    // Swipe right - previous slide
+                    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                }
+                updateCarousel();
+            }
+        }
+    }
+
+    function updateCarousel() {
+        // Update slides
+        slides.forEach((slide, index) => {
+            slide.classList.toggle('active', index === currentSlide);
+        });
+
+        // Update dots
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentSlide);
+        });
+    }
+}
+
+// Initialize carousels when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing carousels...');
+    
+    // Initialize LED Lobe carousel with multiple images
+    initializeCarousel('ledlobe', [
+        'ledlobe-images/Cropped_LEDLOBE_FIVEPACK.png',
+        'ledlobe-images/cropped_LEDLOBE_RED.png'
+    ]);
+
+    // Initialize Batteries carousel
+    initializeCarousel('batteries', [
+        'battery-images/BATTERY_SINGLEPACK.jpg'
+    ]);
 });

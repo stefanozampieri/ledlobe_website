@@ -144,7 +144,7 @@ main {
     margin-top: 60px;
 }
 
-/* Hero Section - Updated for proper image handling */
+/* Hero Section */
 .hero {
     display: flex;
     align-items: center;
@@ -193,52 +193,145 @@ main {
     position: relative;
 }
 
-/* Products Section */
+/* Product grid layout */
 .products {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 500px), 1fr));
     gap: 2rem;
     padding: 2rem var(--container-padding);
     max-width: var(--max-width);
     margin: 0 auto;
 }
 
+/* Make all product cards the same size */
 .product-card {
     background-color: var(--surface);
     border-radius: 8px;
     overflow: hidden;
     transition: transform 0.3s ease;
-    height: 100%;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    height: auto;
+    max-width: 500px; /* Set fixed maximum width */
+    margin: 0 auto; /* Center cards in their grid cells */
 }
 
 .product-card:hover {
     transform: translateY(-5px);
 }
 
+/* Ensure consistent image container sizing */
 .product-image {
     width: 100%;
-    padding-top: 75%;
     position: relative;
+    background-color: white;
 }
 
-.product-image img {
+.carousel-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3; /* Consistent aspect ratio for all product images */
+    background-color: white;
+}
+
+.carousel-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-slide {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    background-color: white;
-    padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    display: none;
 }
 
+.carousel-slide.active {
+    opacity: 1;
+    display: block !important;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 0.5rem; /* Reduce padding from 1rem to 0.5rem */
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 100;
+}
+
+.carousel-container:hover .carousel-button {
+    opacity: 1;
+}
+
+.carousel-button.prev {
+    left: 10px;
+}
+
+.carousel-button.next {
+    right: 10px;
+}
+
+.carousel-button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.carousel-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+.carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+.carousel-dot.active {
+    background-color: var(--primary-color);
+    width: 16px;
+    border-radius: 4px;
+}
+
+/* Ensure consistent product details section */
 .product-details {
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    min-height: 250px; /* Ensure consistent minimum height for details section */
 }
 
 .product-details h2 {
@@ -247,6 +340,7 @@ main {
     font-size: clamp(1.25rem, 2vw, 1.5rem);
 }
 
+/* Ensure consistent form elements */
 .product-options {
     display: flex;
     flex-direction: column;
@@ -263,6 +357,7 @@ main {
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 4px;
     font-size: 1rem;
+    height: 45px; /* Consistent height for all input elements */
 }
 
 .price {
@@ -271,9 +366,16 @@ main {
     color: var(--primary-color);
 }
 
+/* Ensure consistent button sizing */
+/* Restore original button colors */
 .add-to-cart-btn {
     width: 100%;
     padding: 1rem;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
     background-color: var(--primary-color);
     color: white;
     border: none;
@@ -281,7 +383,6 @@ main {
     cursor: pointer;
     transition: background-color 0.3s ease;
     font-size: 1rem;
-    margin-top: auto;
 }
 
 .add-to-cart-btn:hover {
@@ -318,13 +419,13 @@ footer {
 }
 
 .footer-links a {
-    color: var(--text-light);  /* Changed to text-light for white links */
+    color: var(--text-light);
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .footer-links a:visited {
-    color: var(--text-light);  /* Ensures visited links stay white */
+    color: var(--text-light);
 }
 
 .footer-links a:hover {
@@ -338,6 +439,57 @@ footer {
     font-size: 0.9rem;
     color: var(--text);
 }
+
+/* Legal Pages Styles */
+.legal-content {
+    padding: 4rem var(--container-padding);
+    margin-top: 60px;
+}
+
+.legal-content h1 {
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+}
+
+.legal-content section {
+    margin-bottom: 2rem;
+}
+
+.legal-content h2 {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.legal-content p {
+    margin-bottom: 1rem;
+    line-height: 1.8;
+}
+
+.option-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.option-group label {
+    color: var(--text-light);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.select-style {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--background);
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    font-size: 1rem;
+    height: 45px;
+}
+
 
 /* Responsive Design */
 @media (min-width: 1600px) {
@@ -357,6 +509,11 @@ footer {
     
     .products {
         grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .product-card {
+        max-width: 450px; /* Slightly smaller on medium screens */
     }
 }
 
@@ -395,7 +552,15 @@ footer {
     
     .products {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1rem;
+    }
+
+    .product-card {
+        max-width: 100%; /* Full width on mobile */
+    }
+
+    .product-details {
+        min-height: 200px; /* Smaller minimum height on mobile */
     }
     
     .footer-content {
@@ -412,6 +577,24 @@ footer {
         width: 100%;
         right: -100%;
     }
+    .carousel-container {
+        aspect-ratio: 1/1; /* Square aspect ratio on mobile */
+    }
+    
+    .carousel-slide img {
+        padding: 0.25rem; /* Even smaller padding on mobile */
+    }
+}
+@media (min-width: 769px) {
+    .products {
+        /* Adjust the minimum width in the grid */
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 500px), 1fr));
+    }
+    
+    .product-card {
+        max-width: 600px; /* Maximum width for larger screens */
+        margin: 0 auto;
+    }
 }
 
 @media (max-width: 480px) {
@@ -427,33 +610,6 @@ footer {
         margin: 0 auto;
         max-width: 100%;
     }
-}
-
-/* Legal Pages Styles */
-.legal-content {
-    padding: 4rem var(--container-padding);
-    margin-top: 60px;
-}
-
-.legal-content h1 {
-    color: var(--text-light);
-    margin-bottom: 2rem;
-    font-size: 2.5rem;
-}
-
-.legal-content section {
-    margin-bottom: 2rem;
-}
-
-.legal-content h2 {
-    color: var(--text-light);
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-}
-
-.legal-content p {
-    margin-bottom: 1rem;
-    line-height: 1.8;
 }
 
 /* Dark mode optimization */
