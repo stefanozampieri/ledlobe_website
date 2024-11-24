@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (quantitySelect) {
         quantitySelect.addEventListener('change', () => {
             const price = quantitySelect.options[quantitySelect.selectedIndex].getAttribute('data-price');
-            document.getElementById('ledlobe-price-display').textContent = `${price} CHF per box containing a pair`;
+            document.getElementById('ledlobe-price-display').textContent = `${price} CHF per box`;
         });
     }
 
