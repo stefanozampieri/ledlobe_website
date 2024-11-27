@@ -389,12 +389,16 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize LED Lobe carousel with multiple images
     initializeCarousel('ledlobe', [
-        'ledlobe-images/Cropped_LEDLOBE_FIVEPACK.png',
-        'ledlobe-images/cropped_LEDLOBE_RED.png'
+        'ledlobe-images/IMG_5862.jpg',
+        'ledlobe-images/IMG_5863.jpg',
+        'ledlobe-images/IMG_5864.jpg',
+        'ledlobe-images/IMG_5865.jpg',
+        'ledlobe-images/IMG_5866.jpg',
+        'ledlobe-images/IMG_5867.jpg'
     ]);
 
     // Initialize Batteries carousel
     initializeCarousel('batteries', [
-        'battery-images/BATTERY_SINGLEPACK.jpg'
+        'battery-images/battery_pair.png'
     ]);
 });
