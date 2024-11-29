@@ -1,32 +1,36 @@
 // Stripe Initialization
 const stripe = Stripe('pk_live_51Q4rw9Dw0JoxpcCwqnOoopUNUXpy6bLBRVMG6nzUCRnBiKfa3fRgx5ytH5WiWnDM8LIGoLwKT4CMPORpSDptIGcl0091WSgZFc');
 
-// Price ID mapping
+// Price ID mapping - separate consumer and wholesale
 const priceIdMap = {
-    blue: {
-        1: 'price_1Q4sOGDw0JoxpcCwr5X4kXYK',
-        50: 'price_1QCqhfDw0JoxpcCw0ORGt3np',
-        100: 'price_1QCqvlDw0JoxpcCwSUlFNJb2'
+    consumer: {
+        blue: 'price_1Q4sOGDw0JoxpcCwr5X4kXYK',
+        green: 'price_1Q4sM2Dw0JoxpcCwrIOncYR2',
+        yellow: 'price_1Q4sLFDw0JoxpcCwuVCJlXr8',
+        pink: 'price_1Q4s9CDw0JoxpcCwvxkPOdIS',
+        red: 'price_1Q4s8DDw0JoxpcCwMrjcqak4'
     },
-    green: {
-        1: 'price_1Q4sM2Dw0JoxpcCwrIOncYR2',
-        50: 'price_1QCqkODw0JoxpcCwBjsStbRT',
-        100: 'price_1QCqurDw0JoxpcCwWLxzGcdP'
-    },
-    yellow: {
-        1: 'price_1Q4sLFDw0JoxpcCwuVCJlXr8',
-        50: 'price_1QCqlIDw0JoxpcCwsrPP4SyA',
-        100: 'price_1QCqtzDw0JoxpcCwran2c1F7'
-    },
-    pink: {
-        1: 'price_1Q4s9CDw0JoxpcCwvxkPOdIS',
-        50: 'price_1QCqnDDw0JoxpcCwD6wJGdbR',
-        100: 'price_1QCqsoDw0JoxpcCwo9tDocTd'
-    },
-    red: {
-        1: 'price_1Q4s8DDw0JoxpcCwMrjcqak4',
-        50: 'price_1QCqooDw0JoxpcCwkgtaCNTH',
-        100: 'price_1QCqrvDw0JoxpcCwY71nzGPZ'
+    wholesale: {
+        blue: {
+            50: 'price_1QCqhfDw0JoxpcCw0ORGt3np',
+            100: 'price_1QCqvlDw0JoxpcCwSUlFNJb2'
+        },
+        green: {
+            50: 'price_1QCqkODw0JoxpcCwBjsStbRT',
+            100: 'price_1QCqurDw0JoxpcCwWLxzGcdP'
+        },
+        yellow: {
+            50: 'price_1QCqlIDw0JoxpcCwsrPP4SyA',
+            100: 'price_1QCqtzDw0JoxpcCwran2c1F7'
+        },
+        pink: {
+            50: 'price_1QCqnDDw0JoxpcCwD6wJGdbR',
+            100: 'price_1QCqsoDw0JoxpcCwo9tDocTd'
+        },
+        red: {
+            50: 'price_1QCqooDw0JoxpcCwkgtaCNTH',
+            100: 'price_1QCqrvDw0JoxpcCwY71nzGPZ'
+        }
     }
 };
 
@@ -44,9 +48,9 @@ const cartCount = document.getElementById('cart-count');
 const cartTotal = document.getElementById('cart-total');
 const checkoutButton = document.getElementById('checkout-button');
 
-// Initialize event listeners
+// Update event listeners for the new buttons
 document.addEventListener('DOMContentLoaded', () => {
-    // Cart open/close listeners
+    // Cart open/close listeners (unchanged)
     cartIcon.addEventListener('click', () => {
         cartSidebar.classList.add('active');
     });
@@ -55,17 +59,14 @@ document.addEventListener('DOMContentLoaded', () => {
         cartSidebar.classList.remove('active');
     });
 
-    // Add to cart listeners for both products
-    const ledlobeAddButton = document.querySelector('[data-product="ledlobe"]');
-    const batteriesAddButton = document.querySelector('[data-product="batteries"]');
-
-    if (ledlobeAddButton) {
-        ledlobeAddButton.addEventListener('click', () => addToCart('ledlobe'));
-    }
-
-    if (batteriesAddButton) {
-        batteriesAddButton.addEventListener('click', () => addToCart('batteries'));
-    }
+    // Add to cart listeners for all products
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const productType = button.getAttribute('data-product');
+            addToCart(productType);
+        });
+    });
 
     // Checkout button listener
     checkoutButton.addEventListener('click', handleCheckout);
@@ -74,42 +75,67 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartDisplay();
 });
 
+// Update addToCart function to handle both sections
 function addToCart(productType) {
     let item;
+    const isWholesale = productType.includes('wholesale');
     
-    if (productType === 'ledlobe') {
-        const color = document.getElementById('color-select').value;
-        const quantitySelect = document.getElementById('quantity-select');
-        const quantity = parseInt(quantitySelect.value);
-        const unitPrice = parseFloat(quantitySelect.options[quantitySelect.selectedIndex].getAttribute('data-price'));
+    if (productType.includes('ledlobe')) {
+        // Handle LED Lobe products
+        const section = isWholesale ? 'wholesale' : 'consumer';
+        const colorSelect = document.getElementById(`color-select-${section}`);
+        const color = colorSelect.value;
         
-        item = {
-            type: 'ledlobe',
-            color: color,
-            quantity: quantity,
-            unitPrice: unitPrice,
-            priceId: priceIdMap[color][quantity],
-            totalPrice: quantity * unitPrice,
-            displayName: `LED Lobe (${color}, ${quantity} units)`
-        };
-    } else if (productType === 'batteries') {
-        const quantity = parseInt(document.getElementById('batteries-quantity').value);
+        if (isWholesale) {
+            // Wholesale section - uses select with predefined quantities
+            const quantitySelect = document.getElementById('quantity-select-wholesale');
+            const quantity = parseInt(quantitySelect.value);
+            const unitPrice = parseFloat(quantitySelect.options[quantitySelect.selectedIndex].getAttribute('data-price'));
+            
+            item = {
+                type: 'ledlobe-wholesale',
+                color: color,
+                quantity: quantity,
+                unitPrice: unitPrice,
+                priceId: priceIdMap.wholesale[color][quantity],
+                totalPrice: quantity * unitPrice,
+                displayName: `LED Lobe Wholesale (${color}, ${quantity} units)`
+            };
+        } else {
+            // Consumer section - uses number input for quantity
+            const quantity = parseInt(document.getElementById('quantity-consumer').value);
+            const unitPrice = 24.90; // Fixed price for consumer
+            
+            item = {
+                type: 'ledlobe-consumer',
+                color: color,
+                quantity: quantity,
+                unitPrice: unitPrice,
+                priceId: priceIdMap.consumer[color],
+                totalPrice: quantity * unitPrice,
+                displayName: `LED Lobe (${color}, ${quantity} unit${quantity > 1 ? 's' : ''})`
+            };
+        }
+    } else if (productType.includes('batteries')) {
+        // Handle battery products
+        const section = isWholesale ? 'wholesale' : 'consumer';
+        const quantity = parseInt(document.getElementById(`batteries-quantity-${section}`).value);
         const unitPrice = 2.90;
         
         item = {
-            type: 'batteries',
+            type: `batteries-${section}`,
             quantity: quantity,
             unitPrice: unitPrice,
             priceId: batteriesPriceId,
             totalPrice: quantity * unitPrice,
-            displayName: `Batteries (${quantity} pairs)`
+            displayName: `Batteries (${quantity} pair${quantity > 1 ? 's' : ''})`
         };
     }
 
     if (item) {
         cart.push(item);
         updateCartDisplay();
-        cartSidebar.classList.add('active'); // Show cart after adding item
+        cartSidebar.classList.add('active');
     }
 }
 
@@ -160,10 +186,19 @@ function removeFromCart(index) {
 
 async function handleCheckout() {
     const lineItems = cart.map(item => {
-        return {
-            price: item.priceId,
-            quantity: 1 // Since our price IDs already include the quantity
-        };
+        if (item.type.includes('wholesale')) {
+            // Wholesale items - quantity is included in the price ID
+            return {
+                price: item.priceId,
+                quantity: 1
+            };
+        } else {
+            // Consumer items - pass quantity to Stripe
+            return {
+                price: item.priceId,
+                quantity: item.quantity
+            };
+        }
     });
 
     try {
@@ -384,21 +419,22 @@ function initializeCarousel(productId, images) {
 }
 
 // Initialize carousels when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM loaded, initializing carousels...');
-    
-    // Initialize LED Lobe carousel with multiple images
-    initializeCarousel('ledlobe', [
-        'ledlobe-images/IMG_5862.jpg',
-        'ledlobe-images/IMG_5863.jpg',
-        'ledlobe-images/IMG_5864.jpg',
-        'ledlobe-images/IMG_5865.jpg',
-        'ledlobe-images/IMG_5866.jpg',
-        'ledlobe-images/IMG_5867.jpg'
-    ]);
+    document.addEventListener('DOMContentLoaded', () => {
+        // Initialize LED Lobe carousels
+        const ledlobeImages = [
+            'ledlobe-images/IMG_5862.jpg',
+            'ledlobe-images/IMG_5863.jpg',
+            'ledlobe-images/IMG_5864.jpg',
+            'ledlobe-images/IMG_5865.jpg',
+            'ledlobe-images/IMG_5866.jpg',
+            'ledlobe-images/IMG_5867.jpg'
+        ];
+        
+        initializeCarousel('ledlobe-consumer', ledlobeImages);
+        initializeCarousel('ledlobe-wholesale', ledlobeImages);
 
-    // Initialize Batteries carousel
-    initializeCarousel('batteries', [
-        'battery-images/battery_pair.png'
-    ]);
-});
+        // Initialize Batteries carousels
+        const batteryImages = ['battery-images/battery_pair.png'];
+        initializeCarousel('batteries-consumer', batteryImages);
+        initializeCarousel('batteries-wholesale', batteryImages);
+    });

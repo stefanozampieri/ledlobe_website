@@ -153,6 +153,7 @@ main {
     max-width: var(--max-width);
     margin: 0 auto;
     min-height: calc(50vh - 30px);
+    flex-direction: column;
 }
 
 .hero-content {

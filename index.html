@@ -55,9 +55,69 @@
                 <img src="main_image.png" alt="LED earrings">
             </div>
         </section>
+<!-- Online shop for consumers -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Online shop</h1>
+                <p>Order here your LEDLOBE earrings. You can choose among the colors red, yellow, green, blue and pink. Enjoy! </p>
+            </div>
+        </section>
 
         <section class="products">
-            <div class="product-card" id="ledlobe">
+            <div class="product-card" id="ledlobe-consumer">
+                <div class="product-image">
+                    <img src="ledlobe-images/IMG_5862.jpg" alt="LED Lobe">
+                </div>
+                <div class="product-details">
+                    <h2>LEDLOBE earrings</h2>
+                    <div class="product-options">
+                        <div class="option-group">
+                            <label for="color-select">Color:</label>
+                            <select id="color-select" class="select-style">
+                                <option value="red">Red</option>
+                                <option value="blue">Blue</option>
+                                <option value="green">Green</option>
+                                <option value="yellow">Yellow</option>
+                                <option value="pink">Pink</option>
+                            </select>
+                        </div>
+                        <div class="option-group">
+                            <label for="quantity-select">Quantity:</label>
+                            <div class="product-options">
+                                <input type="number" id="batteries-quantity" value="1" min="1" class="quantity-input">
+                            </div>
+                        </div>
+                    </div>
+                    <p class="price" id="ledlobe-price-display">24.90 CHF per box</p>
+                    <button class="add-to-cart-btn" data-product="ledlobe">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card" id="batteries-consumer">
+                <div class="product-image">
+                    <img src="battery-images/battery_pair.png" alt="Batteries">
+                </div>
+                <div class="product-details">
+                    <h2>Pair of Batteries CR1025</h2>
+                    <div class="product-options">
+                        <input type="number" id="batteries-quantity" value="1" min="1" class="quantity-input">
+                    </div>
+                    <p class="price" id="batteries-price-display">2.90 CHF per pair</p>
+                    <button class="add-to-cart-btn" data-product="batteries">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+
+<!-- Online shop for wholesale -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>wholesale shop</h1>
+                <p>If you are a vendor, you can order here bigger batches with vendor discounts.</p>
+            </div>
+        </section>
+
+        <section class="products">
+            <div class="product-card" id="ledlobe-wholesale">
                 <div class="product-image">
                     <img src="ledlobe-images/IMG_5862.jpg" alt="LED Lobe">
                 </div>
@@ -88,7 +148,7 @@
                 </div>
             </div>
 
-            <div class="product-card" id="batteries">
+            <div class="product-card" id="batteries-wholesale">
                 <div class="product-image">
                     <img src="battery-images/battery_pair.png" alt="Batteries">
                 </div>
