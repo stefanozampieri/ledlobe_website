@@ -75,20 +75,24 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartDisplay();
 });
 
-// Update addToCart function to handle both sections
 function addToCart(productType) {
     let item;
     const isWholesale = productType.includes('wholesale');
+    const section = isWholesale ? 'wholesale' : 'consumer';
     
     if (productType.includes('ledlobe')) {
         // Handle LED Lobe products
-        const section = isWholesale ? 'wholesale' : 'consumer';
-        const colorSelect = document.getElementById(`color-select-${section}`);
-        const color = colorSelect.value;
-        
         if (isWholesale) {
             // Wholesale section - uses select with predefined quantities
-            const quantitySelect = document.getElementById('quantity-select-wholesale');
+            const colorSelect = document.getElementById(`color-select-${section}`);
+            const quantitySelect = document.getElementById(`quantity-select-${section}`);
+            
+            if (!colorSelect || !quantitySelect) {
+                console.error('Could not find wholesale form elements');
+                return;
+            }
+            
+            const color = colorSelect.value;
             const quantity = parseInt(quantitySelect.value);
             const unitPrice = parseFloat(quantitySelect.options[quantitySelect.selectedIndex].getAttribute('data-price'));
             
@@ -103,7 +107,16 @@ function addToCart(productType) {
             };
         } else {
             // Consumer section - uses number input for quantity
-            const quantity = parseInt(document.getElementById('quantity-consumer').value);
+            const colorSelect = document.getElementById(`color-select-${section}`);
+            const quantityInput = document.getElementById(`quantity-${section}`);
+            
+            if (!colorSelect || !quantityInput) {
+                console.error('Could not find consumer form elements');
+                return;
+            }
+            
+            const color = colorSelect.value;
+            const quantity = parseInt(quantityInput.value);
             const unitPrice = 24.90; // Fixed price for consumer
             
             item = {
@@ -118,8 +131,14 @@ function addToCart(productType) {
         }
     } else if (productType.includes('batteries')) {
         // Handle battery products
-        const section = isWholesale ? 'wholesale' : 'consumer';
-        const quantity = parseInt(document.getElementById(`batteries-quantity-${section}`).value);
+        const quantityInput = document.getElementById(`batteries-quantity-${section}`);
+        
+        if (!quantityInput) {
+            console.error('Could not find batteries quantity input');
+            return;
+        }
+        
+        const quantity = parseInt(quantityInput.value);
         const unitPrice = 2.90;
         
         item = {
