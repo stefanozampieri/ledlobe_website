@@ -489,3 +489,20 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeCarousel('batteries-consumer', batteryImages);
     initializeCarousel('batteries-wholesale', batteryImages);
 });
+
+// Mobile Menu Toggle
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+
+    mobileMenuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-menu') && !e.target.closest('.mobile-menu-btn')) {
+            navLinks.classList.remove('active');
+        }
+    });
+});
