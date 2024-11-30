@@ -205,14 +205,14 @@ function removeFromCart(index) {
 
 async function handleCheckout() {
     const lineItems = cart.map(item => {
-        if (item.type.includes('wholesale')) {
-            // Wholesale items - quantity is included in the price ID
+        if (item.type === 'ledlobe-wholesale') {  // Only LED earrings wholesale
+            // Wholesale LEDs - quantity is included in the price ID
             return {
                 price: item.priceId,
                 quantity: 1
             };
         } else {
-            // Consumer items - pass quantity to Stripe
+            // All other items (consumer LEDs, consumer batteries, wholesale batteries)
             return {
                 price: item.priceId,
                 quantity: item.quantity
