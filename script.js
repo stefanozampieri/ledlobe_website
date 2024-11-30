@@ -39,6 +39,20 @@ const batteriesPriceId = 'price_1QCqNWDw0JoxpcCwc2CY4mQR';
 // Shopping Cart
 let cart = [];
 
+// Load cart from localStorage
+function loadCart() {
+    const savedCart = localStorage.getItem('ledlobeCart');
+    if (savedCart) {
+        cart = JSON.parse(savedCart);
+        updateCartDisplay();
+    }
+}
+
+// Save cart to localStorage
+function saveCart() {
+    localStorage.setItem('ledlobeCart', JSON.stringify(cart));
+}
+
 // DOM Elements
 const cartIcon = document.getElementById('cart-icon');
 const cartSidebar = document.getElementById('cart-sidebar');
@@ -49,8 +63,12 @@ const cartTotal = document.getElementById('cart-total');
 const checkoutButton = document.getElementById('checkout-button');
 
 // Update event listeners for the new buttons
+// Update event listeners for the new buttons
 document.addEventListener('DOMContentLoaded', () => {
-    // Cart open/close listeners (unchanged)
+    // Load saved cart first
+    loadCart();
+
+    // Cart open/close listeners
     cartIcon.addEventListener('click', () => {
         cartSidebar.classList.add('active');
     });
@@ -71,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Checkout button listener
     checkoutButton.addEventListener('click', handleCheckout);
 
-    // Initialize cart display
+    // Initialize cart display with loaded data
     updateCartDisplay();
 });
 
@@ -150,13 +168,15 @@ function addToCart(productType) {
             displayName: `Batteries (${quantity} pair${quantity > 1 ? 's' : ''})`
         };
     }
-
+ 
     if (item) {
         cart.push(item);
+        saveCart(); // Save cart to localStorage
         updateCartDisplay();
         cartSidebar.classList.add('active');
     }
-}
+ }
+ 
 
 function updateCartDisplay() {
     // Update cart count
@@ -198,8 +218,10 @@ function updateCartDisplay() {
     checkoutButton.style.display = cart.length > 0 ? 'block' : 'none';
 }
 
+// Update removeFromCart function
 function removeFromCart(index) {
     cart.splice(index, 1);
+    saveCart(); // Save after removing
     updateCartDisplay();
 }
 
@@ -298,7 +320,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Update consumer LED Lobe price display (fixed price)
-    document.getElementById('ledlobe-price-display-consumer').textContent = '24.90 CHF per box';
+    const consumerPriceDisplay = document.getElementById('ledlobe-price-display-consumer');
+    if (consumerPriceDisplay) {
+        consumerPriceDisplay.textContent = '24.90 CHF per box';
+    }
 
     // Update consumer Batteries price display
     const batteriesQuantityConsumer = document.getElementById('batteries-quantity-consumer');
@@ -453,41 +478,78 @@ function initializeCarousel(productId, images) {
 // Initialize carousels when DOM is loaded
 // Initialize carousels when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize hero carousel
-    const heroImages = [
-        'main_image.png',
-        'ledlobe-images/IMG_5862.jpg',
-        'ledlobe-images/IMG_5863.jpg',
-        'ledlobe-images/IMG_5864.jpg'
-    ];
-    console.log('Initializing hero carousel with images:', heroImages);
-    
-    // Try to initialize hero carousel
-    const heroCarouselElement = document.getElementById('hero-carousel');
-    if (heroCarouselElement) {
-        console.log('Found hero carousel element');
-        initializeCarousel('hero-carousel', heroImages);
-    } else {
-        console.error('Could not find hero carousel element with ID: hero-carousel');
+    // Price display updates - only run on pages with these elements
+    const wholesaleQuantitySelect = document.getElementById('quantity-select-wholesale');
+    if (wholesaleQuantitySelect) {
+        wholesaleQuantitySelect.addEventListener('change', () => {
+            const price = wholesaleQuantitySelect.options[wholesaleQuantitySelect.selectedIndex].getAttribute('data-price');
+            const priceDisplay = document.getElementById('ledlobe-price-display-wholesale');
+            if (priceDisplay) {
+                priceDisplay.textContent = `${price} CHF per box`;
+            }
+        });
+        
+        // Set initial price
+        const initialPrice = wholesaleQuantitySelect.options[wholesaleQuantitySelect.selectedIndex].getAttribute('data-price');
+        const initialPriceDisplay = document.getElementById('ledlobe-price-display-wholesale');
+        if (initialPriceDisplay) {
+            initialPriceDisplay.textContent = `${initialPrice} CHF per box`;
+        }
     }
 
-    // Rest of the existing carousel initializations...
-    const ledlobeImages = [
-        'ledlobe-images/IMG_5862.jpg',
-        'ledlobe-images/IMG_5863.jpg',
-        'ledlobe-images/IMG_5864.jpg',
-        'ledlobe-images/IMG_5865.jpg',
-        'ledlobe-images/IMG_5866.jpg',
-        'ledlobe-images/IMG_5867.jpg'
-    ];
-    
-    initializeCarousel('ledlobe-consumer', ledlobeImages);
-    initializeCarousel('ledlobe-wholesale', ledlobeImages);
+    // Consumer price displays - only when elements exist
+    const consumerPriceDisplay = document.getElementById('ledlobe-price-display-consumer');
+    if (consumerPriceDisplay) {
+        consumerPriceDisplay.textContent = '24.90 CHF per box';
+    }
 
-    // Initialize Batteries carousels
+    // Initialize carousels based on page
+    if (document.getElementById('hero-carousel')) {
+        const heroImages = [
+            'main_image.png',
+            'ledlobe-images/IMG_5862.jpg',
+            'ledlobe-images/IMG_5863.jpg',
+            'ledlobe-images/IMG_5864.jpg'
+        ];
+        initializeCarousel('hero-carousel', heroImages);
+    }
+
+    // Consumer products carousel
+    if (document.getElementById('ledlobe-consumer')) {
+        const ledlobeImages = [
+            'ledlobe-images/IMG_5862.jpg',
+            'ledlobe-images/IMG_5863.jpg',
+            'ledlobe-images/IMG_5864.jpg',
+            'ledlobe-images/IMG_5865.jpg',
+            'ledlobe-images/IMG_5866.jpg',
+            'ledlobe-images/IMG_5867.jpg'
+        ];
+        initializeCarousel('ledlobe-consumer', ledlobeImages);
+    }
+
+    // Wholesale products carousel
+    if (document.getElementById('ledlobe-wholesale')) {
+        const ledlobeImages = [
+            'ledlobe-images/IMG_5862.jpg',
+            'ledlobe-images/IMG_5863.jpg',
+            'ledlobe-images/IMG_5864.jpg',
+            'ledlobe-images/IMG_5865.jpg',
+            'ledlobe-images/IMG_5866.jpg',
+            'ledlobe-images/IMG_5867.jpg'
+        ];
+        initializeCarousel('ledlobe-wholesale', ledlobeImages);
+    }
+
+    // Battery carousels
     const batteryImages = ['battery-images/battery_pair.png'];
-    initializeCarousel('batteries-consumer', batteryImages);
-    initializeCarousel('batteries-wholesale', batteryImages);
+    
+    if (document.getElementById('batteries-consumer')) {
+        initializeCarousel('batteries-consumer', batteryImages);
+    }
+    
+    if (document.getElementById('batteries-wholesale')) {
+        initializeCarousel('batteries-wholesale', batteryImages);
+    }
 });
 
 // Mobile Menu Toggle
