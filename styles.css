@@ -32,13 +32,16 @@ body {
 }
 
 /* Navbar */
+
 .navbar {
-    background-color: var(--surface);
+    background-color: rgba(20, 20, 20, 0.7); /* Using your --surface color with 0.9 opacity */
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px); /* This adds a slight blur effect to content behind the navbar */
+    -webkit-backdrop-filter: blur(10px); /* For Safari support */
 }
 
 .nav-content {
@@ -146,16 +149,40 @@ main {
 
 /* Hero Section */
 .hero-text {
+    position: relative;
     display: flex;
     align-items: flex-start;
     gap: 4rem;
     padding: 1rem var(--container-padding) 0rem;
-    max-width: var(--max-width);
+    max-width: 100%; /* Changed from var(--max-width) to 100% */
     margin: 0 auto;
-    min-height: calc(10vh - 30px); /* Slightly reduced from 50vh since we now have separate image section */
+    min-height: 70vh; /* Increased from 10vh for better visual impact */
+    background-image: url('main_image.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+}
+
+.hero-text::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(18, 18, 18, 0.7) 0%,
+        rgba(18, 18, 18, 0.7) 70%,
+        rgba(18, 18, 18, 1) 100%
+    );
+    z-index: 1;
 }
 
 .hero-content {
+    position: relative;
+    z-index: 2;
     flex: 1;
     width: 100%;  /* Added width 100% */
     max-width: 100%;  /* Changed from 600px to 100% */
@@ -394,7 +421,7 @@ main {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 500px), 1fr));
     gap: 2rem;
-    padding: 0rem var(--container-padding);
+    padding: 2rem var(--container-padding);
     max-width: var(--max-width);
     margin: 0 auto;
 }
