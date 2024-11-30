@@ -46,17 +46,33 @@
     </div>
 
     <main>
-        <section class="hero">
+        <section class="hero-text">
             <div class="hero-content">
                 <h1>Wholesale LedLobe Earrings</h1>
                 <p>Perfect for festivals, parties, and events. Available in bulk with special discounts.</p>
             </div>
-            <div class="hero-image">
-                <img src="main_image.png" alt="LED earrings">
+        </section>
+
+        <!-- Hero Image Carousel Section -->
+        <section class="hero-carousel">
+            <div class="product-card" id="hero-carousel">
+                <div class="product-image">
+                    <div class="carousel-container">
+                        <div class="carousel-track"></div>
+                        <button class="carousel-button prev" aria-label="Previous image">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="carousel-button next" aria-label="Next image">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <div class="carousel-dots"></div>
+                    </div>
+                </div>
             </div>
         </section>
+
 <!-- Online shop for consumers -->
-        <section class="hero">
+        <section class="hero-text">
             <div class="hero-content">
                 <h1>Online shop</h1>
                 <p>Order here your LEDLOBE earrings. You can choose among the colors red, yellow, green, blue and pink. Enjoy! </p>
@@ -82,14 +98,14 @@
                             </select>
                         </div>
                         <div class="option-group">
-                            <label for="quantity-select-consumer">Quantity:</label>
+                            <label for="quantity-consumer">Quantity:</label>
                             <div class="product-options">
-                                <input type="number" id="batteries-quantity" value="1" min="1" class="quantity-input">
+                                <input type="number" id="quantity-consumer" value="1" min="1" class="quantity-input">
                             </div>
                         </div>
                     </div>
                     <p class="price" id="ledlobe-price-display-consumer">24.90 CHF per box</p>
-                    <button class="add-to-cart-btn" data-product="ledlobe">Add to Cart</button>
+                    <button class="add-to-cart-btn" data-product="ledlobe-consumer">Add to Cart</button>
                 </div>
             </div>
 
@@ -100,16 +116,16 @@
                 <div class="product-details">
                     <h2>Pair of Batteries CR1025</h2>
                     <div class="product-options">
-                        <input type="number" id="batteries-quantity" value="1" min="1" class="quantity-input">
+                        <input type="number" id="batteries-quantity-consumer" value="1" min="1" class="quantity-input">
                     </div>
                     <p class="price" id="batteries-price-display-consumer">2.90 CHF per pair</p>
-                    <button class="add-to-cart-btn" data-product="batteries">Add to Cart</button>
+                    <button class="add-to-cart-btn" data-product="batteries-consumer">Add to Cart</button>
                 </div>
             </div>
         </section>
 
 <!-- Online shop for wholesale -->
-        <section class="hero">
+        <section class="hero-text">
             <div class="hero-content">
                 <h1>wholesale shop</h1>
                 <p>If you are a vendor, you can order here bigger batches with vendor discounts.</p>
@@ -143,7 +159,7 @@
                         </div>
                     </div>
                     <p class="price" id="ledlobe-price-display-wholesale">24.90 CHF per box</p>
-                    <button class="add-to-cart-btn" data-product="ledlobe">Add to Cart</button>
+                    <button class="add-to-cart-btn" data-product="ledlobe-wholesale">Add to Cart</button>
                 </div>
             </div>
 
@@ -154,10 +170,10 @@
                 <div class="product-details">
                     <h2>Pair of Batteries CR1025</h2>
                     <div class="product-options">
-                        <input type="number" id="batteries-quantity" value="1" min="1" class="quantity-input">
+                        <input type="number" id="batteries-quantity-wholesale" value="1" min="1" class="quantity-input">
                     </div>
                     <p class="price" id="batteries-price-display-wholesale">2.90 CHF per pair</p>
-                    <button class="add-to-cart-btn" data-product="batteries">Add to Cart</button>
+                    <button class="add-to-cart-btn" data-product="batteries-wholesale">Add to Cart</button>
                 </div>
             </div>
         </section>

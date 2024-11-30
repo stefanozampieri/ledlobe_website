@@ -285,21 +285,34 @@ document.head.appendChild(style);
 
 // Initialize product price displays
 document.addEventListener('DOMContentLoaded', () => {
-    // Update LED Lobe price display
-    const quantitySelect = document.getElementById('quantity-select');
-    if (quantitySelect) {
-        quantitySelect.addEventListener('change', () => {
-            const price = quantitySelect.options[quantitySelect.selectedIndex].getAttribute('data-price');
-            document.getElementById('ledlobe-price-display').textContent = `${price} CHF per box`;
+    // Update wholesale LED Lobe price display
+    const wholesaleQuantitySelect = document.getElementById('quantity-select-wholesale');
+    if (wholesaleQuantitySelect) {
+        wholesaleQuantitySelect.addEventListener('change', () => {
+            const price = wholesaleQuantitySelect.options[wholesaleQuantitySelect.selectedIndex].getAttribute('data-price');
+            document.getElementById('ledlobe-price-display-wholesale').textContent = `${price} CHF per box`;
+        });
+        // Set initial price
+        const initialPrice = wholesaleQuantitySelect.options[wholesaleQuantitySelect.selectedIndex].getAttribute('data-price');
+        document.getElementById('ledlobe-price-display-wholesale').textContent = `${initialPrice} CHF per box`;
+    }
+
+    // Update consumer LED Lobe price display (fixed price)
+    document.getElementById('ledlobe-price-display-consumer').textContent = '24.90 CHF per box';
+
+    // Update consumer Batteries price display
+    const batteriesQuantityConsumer = document.getElementById('batteries-quantity-consumer');
+    if (batteriesQuantityConsumer) {
+        batteriesQuantityConsumer.addEventListener('input', () => {
+            document.getElementById('batteries-price-display-consumer').textContent = '2.90 CHF per pair';
         });
     }
 
-    // Update Batteries price display
-    const batteriesQuantity = document.getElementById('batteries-quantity');
-    if (batteriesQuantity) {
-        batteriesQuantity.addEventListener('input', () => {
-            const quantity = parseInt(batteriesQuantity.value) || 0;
-            document.getElementById('batteries-price-display').textContent = `2.90 CHF per pair`;
+    // Update wholesale Batteries price display
+    const batteriesQuantityWholesale = document.getElementById('batteries-quantity-wholesale');
+    if (batteriesQuantityWholesale) {
+        batteriesQuantityWholesale.addEventListener('input', () => {
+            document.getElementById('batteries-price-display-wholesale').textContent = '2.90 CHF per pair';
         });
     }
 });
@@ -438,22 +451,41 @@ function initializeCarousel(productId, images) {
 }
 
 // Initialize carousels when DOM is loaded
-    document.addEventListener('DOMContentLoaded', () => {
-        // Initialize LED Lobe carousels
-        const ledlobeImages = [
-            'ledlobe-images/IMG_5862.jpg',
-            'ledlobe-images/IMG_5863.jpg',
-            'ledlobe-images/IMG_5864.jpg',
-            'ledlobe-images/IMG_5865.jpg',
-            'ledlobe-images/IMG_5866.jpg',
-            'ledlobe-images/IMG_5867.jpg'
-        ];
-        
-        initializeCarousel('ledlobe-consumer', ledlobeImages);
-        initializeCarousel('ledlobe-wholesale', ledlobeImages);
+// Initialize carousels when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize hero carousel
+    const heroImages = [
+        'main_image.png',
+        'ledlobe-images/IMG_5862.jpg',
+        'ledlobe-images/IMG_5863.jpg',
+        'ledlobe-images/IMG_5864.jpg'
+    ];
+    console.log('Initializing hero carousel with images:', heroImages);
+    
+    // Try to initialize hero carousel
+    const heroCarouselElement = document.getElementById('hero-carousel');
+    if (heroCarouselElement) {
+        console.log('Found hero carousel element');
+        initializeCarousel('hero-carousel', heroImages);
+    } else {
+        console.error('Could not find hero carousel element with ID: hero-carousel');
+    }
 
-        // Initialize Batteries carousels
-        const batteryImages = ['battery-images/battery_pair.png'];
-        initializeCarousel('batteries-consumer', batteryImages);
-        initializeCarousel('batteries-wholesale', batteryImages);
-    });
+    // Rest of the existing carousel initializations...
+    const ledlobeImages = [
+        'ledlobe-images/IMG_5862.jpg',
+        'ledlobe-images/IMG_5863.jpg',
+        'ledlobe-images/IMG_5864.jpg',
+        'ledlobe-images/IMG_5865.jpg',
+        'ledlobe-images/IMG_5866.jpg',
+        'ledlobe-images/IMG_5867.jpg'
+    ];
+    
+    initializeCarousel('ledlobe-consumer', ledlobeImages);
+    initializeCarousel('ledlobe-wholesale', ledlobeImages);
+
+    // Initialize Batteries carousels
+    const batteryImages = ['battery-images/battery_pair.png'];
+    initializeCarousel('batteries-consumer', batteryImages);
+    initializeCarousel('batteries-wholesale', batteryImages);
+});
