@@ -54,7 +54,8 @@ body {
 }
 
 .logo img {
-    height: 40px;
+    height: 30px; /* Increased from 40px */
+    width: auto; /* This maintains the aspect ratio */
 }
 
 .cart-icon {
@@ -193,9 +194,15 @@ main {
     max-width: none; /* Remove any max-width constraints */
 }
 
+.hero-content img {
+    width: 100px; /* You can adjust this value */
+    height: auto; /* This maintains the aspect ratio */
+    margin-top: 0.5rem; /* Add some space between text and arrow */
+}
+
 .hero-content h2 {
     font-size: 2.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     color: var(--text-light);
 }
 
