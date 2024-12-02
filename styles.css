@@ -763,6 +763,11 @@ footer {
 /* -----------------------------@Media 768px ------------------------------ */
 /* ------------------------------------------------------------------------ */
 @media (max-width: 768px) {
+    /* Adjust container padding for mobile */
+    :root {
+        --container-padding: 1rem;
+    }
+
     .hero {
         flex-direction: column;
         min-height: auto;
@@ -789,24 +794,38 @@ footer {
         max-height: 50vh;
     }
     
+    /* Ensure products stack vertically on mobile */
     .products {
-        grid-template-columns: 1fr;
-        gap: 1rem;
+        grid-template-columns: 1fr;  /* Force single column */
+        padding: 1rem var(--container-padding);
+        width: 100%;
+        margin: 0 auto;
     }
 
+    /* Keep product cards full width on mobile */
     .product-card {
-        max-width: 100%; /* Full width on mobile */
-        margin: 0;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;  /* Allow cards to shrink if needed */
+    }
+
+    /* Prevent horizontal scrolling */
+    body, 
+    html {
+        max-width: 100vw;
+        overflow-x: hidden;
+        width: 100%;
     }
 
     .product-details {
         min-height: 200px; /* Smaller minimum height on mobile */
     }
     
+    /* Fix footer text wrapping */
     .footer-content {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-        padding-bottom: 1.5rem;
+        grid-template-columns: 1fr;  /* Stack footer sections vertically */
+        width: 100%;
+        padding: 0 var(--container-padding);
     }
     
     .footer-links {
@@ -832,8 +851,22 @@ footer {
     }
     
     .footer-section {
+        width: 100%;
         text-align: center;
-        padding: 0 1rem;
+        word-wrap: break-word;  /* Ensure text wraps properly */
+        overflow-wrap: break-word;
+    }
+
+    /* Ensure all containers respect viewport width */
+    .container,
+    .nav-content,
+    .hero-content,
+    .FAQ-content {
+        width: 100%;
+        max-width: 100%;
+        padding-left: var(--container-padding);
+        padding-right: var(--container-padding);
+        margin: 0 auto;
     }
 
     .footer-bottom {
@@ -966,6 +999,13 @@ footer {
     
     .footer-section {
         padding: 0 0.5rem;
+    }
+
+    .product-details,
+    .product-options,
+    .price {
+        width: 100%;
+        padding: 1rem;
     }
 
 }
