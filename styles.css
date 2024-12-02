@@ -21,6 +21,15 @@ body {
     color: var(--text);
     line-height: 1.6;
     min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    position: relative; /* Ensure proper stacking context */
+}
+
+html {
+    overflow-y: scroll; /* Always show scrollbar */
+    width: 100vw;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 /* Container */
@@ -146,6 +155,7 @@ body {
 /* Main Content */
 main {
     margin-top: 60px;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 /* Hero Section */
