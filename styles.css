@@ -786,6 +786,7 @@ footer {
 
     .product-card {
         max-width: 100%; /* Full width on mobile */
+        margin: 0;
     }
 
     .product-details {
@@ -998,12 +999,11 @@ footer {
 
 @media (min-width: 769px) {
     .products {
-        /* Adjust the minimum width in the grid */
         grid-template-columns: repeat(auto-fit, minmax(min(100%, 500px), 1fr));
     }
     
     .product-card {
-        max-width: 600px; /* Maximum width for larger screens */
+        max-width: 600px;
         margin: 0 auto;
     }
 }
