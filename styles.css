@@ -821,17 +821,22 @@ footer {
         min-height: 200px; /* Smaller minimum height on mobile */
     }
     
-    /* Fix footer text wrapping */
+    /* Force single column layout for footer */
     .footer-content {
-        grid-template-columns: 1fr;  /* Stack footer sections vertically */
+        display: grid;
+        grid-template-columns: 1fr;  /* Single column */
+        gap: 2rem;
         width: 100%;
-        padding: 0 var(--container-padding);
+        padding: 2rem var(--container-padding);
     }
     
+    /* Center align footer links */
     .footer-links {
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin: 0;
+        padding: 0;
     }
 
     .footer-section h3 {
@@ -850,11 +855,17 @@ footer {
         padding: 0.25rem; /* Even smaller padding on mobile */
     }
     
+    /* Center align all footer sections */
     .footer-section {
         width: 100%;
         text-align: center;
-        word-wrap: break-word;  /* Ensure text wraps properly */
-        overflow-wrap: break-word;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Ensure proper spacing between sections */
+    .footer-section:not(:last-child) {
+        margin-bottom: 1rem;
     }
 
     /* Ensure all containers respect viewport width */
@@ -870,8 +881,9 @@ footer {
     }
 
     .footer-bottom {
-        padding-top: 1.5rem;
-        font-size: 0.85rem;
+        width: 100%;
+        text-align: center;
+        padding: 1rem var(--container-padding);
     }
 
     .footer-links li {
@@ -880,7 +892,7 @@ footer {
     
     .social-links {
         justify-content: center;
-        margin-top: 0.75rem;
+        margin-top: 1rem;
     }
 
     .hero-text {
@@ -994,7 +1006,8 @@ footer {
     }
     
     .footer-content {
-        gap: 1.25rem;
+        gap: 1.5rem;
+        padding: 1.5rem var(--container-padding);
     }
     
     .footer-section {
