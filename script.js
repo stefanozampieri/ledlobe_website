@@ -507,7 +507,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('hero-carousel')) {
         const heroImages = [
             'main_image.png',
-            'ledlobe-images/IMG_5862.jpg',
+            'about-carousel/davide-paudex.jpg',
             'ledlobe-images/IMG_5863.jpg',
             'ledlobe-images/IMG_5864.jpg'
         ];
