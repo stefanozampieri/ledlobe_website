@@ -506,10 +506,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize carousels based on page
     if (document.getElementById('hero-carousel')) {
         const heroImages = [
-            'main_image.png',
+            'about-carousel/laura3.jpg',
+            'about-carousel/ledlobe-in-the-dark-2.jpg',
             'about-carousel/davide-paudex.jpg',
-            'ledlobe-images/IMG_5863.jpg',
-            'ledlobe-images/IMG_5864.jpg'
+            'about-carousel/ledlobe-in-the-dark.jpg'
         ];
         initializeCarousel('hero-carousel', heroImages);
     }
