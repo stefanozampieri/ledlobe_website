@@ -863,6 +863,7 @@ footer {
     
     /* Ensure products stack vertically on mobile */
     .products {
+        display: grid; /* Ensure display is grid */
         grid-template-columns: 1fr !important;  /* Force single column and override other rules */
         padding: 1rem var(--container-padding);
         width: 100%;
@@ -891,7 +892,7 @@ footer {
     /* Force single column layout for footer */
     .footer-content {
         display: grid;
-        grid-template-columns: 1fr;  /* Single column */
+        grid-template-columns: 1fr !important;  /* Single column, ensure this overrides previous */
         gap: 2rem;
         width: 100%;
         padding: 2rem var(--container-padding);
@@ -1107,7 +1108,8 @@ footer {
     }
     
     .products {
-        grid-template-columns: repeat(2, 1fr);
+        display: grid; /* Ensure display is grid */
+        grid-template-columns: 1fr !important; /* Force single column */
         gap: 1.5rem;
     }
     
@@ -1122,11 +1124,18 @@ footer {
     }
 
     .products {
+        display: grid; /* Ensure display is grid */
         grid-template-columns: 1fr !important; /* Ensure products stack also at this breakpoint */
     }
 
     .footer-content {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr !important; /* Single column for footer content */
+    }
+
+    .footer-section {
+        width: 100%;
+        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        text-align: center; /* Center text as it will be full width */
     }
 }
 
