@@ -6,40 +6,141 @@
     <title>Terms & Conditions - LedLobe</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="Favicon.png" type="image/png">
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "p5slv3kj93");
+    </script>
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-content">
-            <div class="logo">
-                <a href="/">
-                    <img src="logo_cropped.png" alt="Logo">
-                </a>
+            <a href="index.html" class="logo">
+<!--            <img src="logo_cropped.png" alt="Logo"> -->
+                <img src="logo_white.svg" alt="Logo">
+            </a>
+            
+            <div class="nav-menu">
+                <button class="mobile-menu-btn" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="about.html">about</a></li>
+                    <li><a href="index.html">online shop</a></li>
+                    <li><a href="wholesale.html">wholesale</a></li>
+                </ul>
+            </div>
+    
+            <div class="cart-icon" id="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cart-count">0</span>
             </div>
         </div>
     </nav>
 
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart" id="close-cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-total">
+            <h4>Total: <span id="cart-total">0.00 CHF</span></h4>
+            <button class="checkout-button" id="checkout-button">Checkout</button>
+        </div>
+    </div>
+
     <main class="legal-content">
         <div class="container">
             <h1>Terms & Conditions</h1>
+            <p><em>Last Updated: [Insert Date Here - e.g., October 26, 2023]</em></p>
             
             <section>
                 <h2>1. Agreement to Terms</h2>
-                <p>By accessing and shopping on LedLobe's website, you agree to these terms and conditions in their entirety.</p>
+                <p>Welcome to LedLobe! These Terms and Conditions ("Terms") govern your use of the LedLobe website at ledlobe.com (the "Site") and your purchase of products from LedLobe. By accessing the Site, creating an account, or purchasing products, you agree to be bound by these Terms and our Privacy Policy. If you do not agree to these Terms, please do not use the Site.</p>
             </section>
 
             <section>
                 <h2>2. Intellectual Property Rights</h2>
-                <p>All content on this website, including but not limited to text, graphics, logos, and images, is the property of LedLobe and is protected by intellectual property laws.</p>
+                <p>All content on this website, including but not limited to text, graphics, logos (including "LedLobe"), product designs, images, and software, is the property of LedLobe or its content suppliers and is protected by Swiss and international intellectual property laws. You may not reproduce, distribute, modify, or create derivative works of any content without our express written permission.</p>
             </section>
 
             <section>
                 <h2>3. Products</h2>
-                <p>We strive to display our products accurately, but we cannot guarantee that your device's display of any color will be accurate. We reserve the right to limit the quantity of products sold.</p>
+                <p>LedLobe specializes in earrings that glow in the dark, utilizing LED technology powered by a small CR1025 battery. Our products are coated to help prevent skin allergies. We strive to display our products and their colors accurately, but we cannot guarantee that your device's display of any color or detail will be perfectly accurate. We reserve the right to limit the quantity of products sold and to discontinue any product at any time.</p>
             </section>
 
             <section>
-                <h2>4. Prices and Payment</h2>
-                <p>All prices are in Swiss Francs (CHF) and include VAT where applicable. We reserve the right to change prices without prior notice.</p>
+                <h2>4. Pricing and Payment</h2>
+                <p>All prices are displayed in Swiss Francs (CHF). For orders shipped within Switzerland, the displayed prices include shipping costs. For custom shipping arrangements outside of our standard offering (e.g., international shipping, if available), please contact us at stefano.zampieri@ledlobe.com before placing your order; additional charges may apply.</p>
+                <p>We reserve the right to change prices for products displayed on the Site at any time and to correct pricing errors that may inadvertently occur.</p>
+                <p>Payment for all orders must be made through Stripe, our third-party payment processor. By placing an order, you agree to Stripe's terms and conditions. LedLobe does not store your full credit card information.</p>
+            </section>
+
+            <section>
+                <h2>5. Order Acceptance and Availability</h2>
+                <p>Your receipt of an electronic or other form of order confirmation does not signify our acceptance of your order, nor does it constitute confirmation of our offer to sell. We reserve the right at any time after receipt of your order to accept or decline your order for any reason.</p>
+                <p>In the event a product is out of stock after you have placed an order, we will notify you and issue a full refund for the unavailable item(s) through Stripe to your original payment method.</p>
+            </section>
+            
+            <section>
+                <h2>6. Shipping Policy</h2>
+                <p>Currently, LedLobe ships products only within Switzerland. As stated in Section 4, shipping costs within Switzerland are included in the product price.</p>
+                <p>We aim to dispatch orders within two (2) working days of order confirmation. However, actual delivery times may vary depending on the carrier and are not guaranteed.</p>
+                <p>LedLobe is responsible for products until they are delivered to the address specified in your order. If your order is damaged during transportation, please contact us immediately at stefano.zampieri@ledlobe.com with details and photographic evidence if possible.</p>
+                <p>For any "custom shipping" arrangements that may result in international delivery, you, the buyer, are solely responsible for any and all customs duties, import taxes, brokerage fees, or other charges imposed by the destination country. LedLobe is not responsible for these charges.</p>
+                <p>For more details, please refer to our <a href="shipping.html">Shipping Information</a> page.</p>
+            </section>
+
+            <section>
+                <h2>7. Returns and Refunds</h2>
+                <p>We want you to be satisfied with your LedLobe purchase. Please refer to our <a href="refund.html">Refund Policy</a> page for detailed information on conditions for returns, the process for initiating a return, and how refunds are processed.</p>
+            </section>
+
+            <section>
+                <h2>8. Wholesale Inquiries</h2>
+                <p>LedLobe welcomes wholesale inquiries. Interested parties can find more information and initiate an order through our <a href="wholesale.html">Wholesale page</a> or by contacting us directly via email at stefano.zampieri@ledlobe.com for personalized assistance and terms.</p>
+            </section>
+
+            <section>
+                <h2>9. Limitation of Liability</h2>
+                <p>To the maximum extent permitted by applicable law, LedLobe shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses, resulting from (a) your access to or use of or inability to access or use the Site or products; (b) any conduct or content of any third party on the Site; or (c) unauthorized access, use, or alteration of your transmissions or content. In no event shall LedLobe's aggregate liability for all claims relating to the products exceed the amount you paid LedLobe for the specific products in question.</p>
+                <p>This website and its content are provided "as is" without warranty of any kind, either express or implied, including but not limited to the implied warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
+            </section>
+
+            <section>
+                <h2>10. Indemnification</h2>
+                <p>You agree to defend, indemnify, and hold harmless LedLobe and its employees, contractors, agents, officers, and directors from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses (including but not limited to attorney's fees), resulting from or arising out of a) your use and access of the Site and products, or b) a breach of these Terms.</p>
+            </section>
+
+            <section>
+                <h2>11. Governing Law</h2>
+                <p>These Terms shall be governed and construed in accordance with the laws of Switzerland, without regard to its conflict of law provisions. Any disputes arising from or relating to these Terms or your use of the Site or products shall be subject to the exclusive jurisdiction of the competent courts in [Specify Canton/City, e.g., Zurich, Geneva, or the location of your business registration in Switzerland].</p>
+            </section>
+
+            <section>
+                <h2>12. Changes to Terms</h2>
+                <p>LedLobe reserves the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will make reasonable efforts to provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion. By continuing to access or use our Site after those revisions become effective, you agree to be bound by the revised terms.</p>
+            </section>
+
+            <section>
+                <h2>13. Severability</h2>
+                <p>If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect. </p>
+            </section>
+
+            <section>
+                <h2>14. Entire Agreement</h2>
+                <p>These Terms, together with our Privacy Policy, Shipping Information, and Refund Policy, constitute the entire agreement between you and LedLobe regarding your use of our Site and purchase of products, and supersede all prior and contemporaneous understandings, agreements, representations, and warranties, both written and oral, regarding such subject matter.</p>
+            </section>
+            
+            <section>
+                <h2>15. Contact Information</h2>
+                <p>If you have any questions about these Terms & Conditions, please contact us at: stefano.zampieri@ledlobe.com</p>
             </section>
         </div>
     </main>
@@ -68,5 +169,6 @@
             <p>&copy; 2024 LedLobe. All rights reserved.</p>
         </div>
     </footer>
+    <script src="script.js"></script>
 </body>
 </html>
