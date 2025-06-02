@@ -618,6 +618,8 @@ footer {
 .footer-section p {
     margin-bottom: 0.5rem;
     font-size: 0.9rem;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .footer-links a:visited {
@@ -861,7 +863,7 @@ footer {
     
     /* Ensure products stack vertically on mobile */
     .products {
-        grid-template-columns: 1fr;  /* Force single column */
+        grid-template-columns: 1fr !important;  /* Force single column and override other rules */
         padding: 1rem var(--container-padding);
         width: 100%;
         margin: 0 auto;
@@ -1117,6 +1119,10 @@ footer {
 @media (max-width: 992px) {
     :root {
         --container-padding: 1.5rem;
+    }
+
+    .products {
+        grid-template-columns: 1fr !important; /* Ensure products stack also at this breakpoint */
     }
 
     .footer-content {
