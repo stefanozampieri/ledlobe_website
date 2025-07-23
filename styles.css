@@ -1,6 +1,6 @@
 :root {
-    --primary-color: #1e88e5;
-    --primary-dark: #1565c0;
+    --primary-color: #ED2B91;
+    --primary-dark: #C1257F;
     --background: #121212;
     --surface: #1f1f1f;
     --text: #e0e0e0;
@@ -568,12 +568,13 @@ main {
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
     font-size: 1rem;
 }
 
 .add-to-cart-btn:hover {
-    background-color: var(--primary-dark);
+    background-color: var(--primary-color);
+    color: #ffffff;
 }
 
 /* Footer */
