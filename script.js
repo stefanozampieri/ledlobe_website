@@ -570,19 +570,26 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function downloadManual() {
-    const link1 = document.createElement('a');
-    link1.href = 'user_manual/user_manual1.png';
-    link1.download = 'user_manual/user_manual1.png';
-    document.body.appendChild(link1);
-    link1.click();
-    document.body.removeChild(link1);
-
-    setTimeout(() => {
-        const link2 = document.createElement('a');
-        link2.href = 'user_manual/user_manual2.png';
-        link2.download = 'user_manual/user_manual2.png';
-        document.body.appendChild(link2);
-        link2.click();
-        document.body.removeChild(link2);
-    }, 100);
+    const link = document.createElement('a');
+    link.href = 'user_manual/LedLobe - User Manual.pdf';
+    link.download = 'LedLobe - User Manual.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
+
+// Function to load footer
+function loadFooter() {
+    fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+            const footerElement = document.querySelector('footer');
+            if (footerElement) {
+                footerElement.innerHTML = data;
+            }
+        })
+        .catch(error => console.error('Error loading footer:', error));
+}
+
+// Load footer on all pages
+loadFooter();
