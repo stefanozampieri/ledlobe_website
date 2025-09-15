@@ -4,11 +4,11 @@ const stripe = Stripe('pk_live_51Q4rw9Dw0JoxpcCwqnOoopUNUXpy6bLBRVMG6nzUCRnBiKfa
 // Price ID mapping - separate consumer and wholesale
 const priceIdMap = {
     consumer: {
-        blue: 'price_1Q4sOGDw0JoxpcCwr5X4kXYK',
-        green: 'price_1Q4sM2Dw0JoxpcCwrIOncYR2',
-        yellow: 'price_1Q4sLFDw0JoxpcCwuVCJlXr8',
-        pink: 'price_1Q4s9CDw0JoxpcCwvxkPOdIS',
-        red: 'price_1Q4s8DDw0JoxpcCwMrjcqak4'
+        blue: 'price_1S7XDsDw0JoxpcCwcDwuY8XU',
+        green: 'price_1S7XHpDw0JoxpcCwMfuKlrF6',
+        yellow: 'price_1S7XIJDw0JoxpcCw6ra59cu0',
+        pink: 'price_1S7XInDw0JoxpcCwwalyBJkV',
+        red: 'price_1S7XJCDw0JoxpcCwJcLz48dL'
     },
     wholesale: {
         blue: {
@@ -135,7 +135,7 @@ function addToCart(productType) {
             
             const color = colorSelect.value;
             const quantity = parseInt(quantityInput.value);
-            const unitPrice = 24.90; // Fixed price for consumer
+            const unitPrice = 19.90; // Fixed price for consumer
             
             item = {
                 type: 'ledlobe-consumer',
@@ -322,7 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update consumer LED Lobe price display (fixed price)
     const consumerPriceDisplay = document.getElementById('ledlobe-price-display-consumer');
     if (consumerPriceDisplay) {
-        consumerPriceDisplay.textContent = '24.90 CHF per box';
+        consumerPriceDisplay.textContent = '19.90 CHF per box';
     }
 
     // Update consumer Batteries price display
@@ -500,7 +500,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Consumer price displays - only when elements exist
     const consumerPriceDisplay = document.getElementById('ledlobe-price-display-consumer');
     if (consumerPriceDisplay) {
-        consumerPriceDisplay.textContent = '24.90 CHF per box';
+        consumerPriceDisplay.textContent = '19.90 CHF per box';
     }
 
     // Initialize carousels based on page
