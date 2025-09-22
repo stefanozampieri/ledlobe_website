@@ -223,6 +223,9 @@ main {
     line-height: 1.2;
     text-align: left;  /* Added explicit left alignment */
 }
+.hero-content h1.center-title {
+    text-align: center;
+}
 
 
 .hero-content p {
@@ -273,7 +276,7 @@ main {
     aspect-ratio: 16/9;
     background-color: var(--surface);
     position: relative;
-}v
+}
 
 .hero-carousel .carousel-track {
     position: relative;
@@ -727,6 +730,87 @@ footer {
     margin-bottom: 1.5rem;
 }
 
+/* Brand Values styles */
+.brand-values {
+    list-style: none;
+    margin: 1rem 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+}
+
+.brand-values li {
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+}
+
+.value-title {
+    font-weight: 700;
+    display: inline-block;
+    transition: transform 0.2s ease, text-shadow 0.2s ease, color 0.2s ease;
+}
+
+.value-title.playful {
+    background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+.value-title.playful:hover {
+    animation: wiggle 0.5s ease-in-out;
+}
+
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(2deg); }
+    50% { transform: rotate(-2deg); }
+    75% { transform: rotate(1deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.value-title.innovative {
+    color: #00d1ff;
+    text-shadow: 0 0 6px rgba(0, 209, 255, 0.6);
+    border-bottom: 2px solid rgba(0, 209, 255, 0.35);
+    padding-bottom: 2px;
+}
+
+.value-title.innovative:hover {
+    text-shadow: 0 0 10px rgba(0, 209, 255, 0.9);
+}
+
+.value-title.confidence {
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.value-title.confidence:hover {
+    transform: translateY(-1px);
+}
+
+.value-title.style {
+    color: #e6c46e;
+    font-style: italic;
+}
+
+.value-title.style:hover {
+    text-shadow: 0 0 6px rgba(230, 196, 110, 0.5);
+}
+
+.mission-vision {
+    text-align: center;
+}
+
+.mission-vision h3 {
+    color: var(--text-light);
+    font-size: 2rem; /* match "What Guides LedLobe" size */
+    margin-bottom: 2rem;
+}
+
 /* Social Media Links */
 .social-links {
     display: flex;
@@ -793,6 +877,7 @@ footer {
     width: 100%;
     height: auto;
     display: block;
+    filter: invert(1);
 }
 
 .download-button {

@@ -249,7 +249,8 @@ async function handleCheckout() {
             successUrl: 'https://ledlobe.com/success.html',
             cancelUrl: 'https://ledlobe.com/',
             shippingAddressCollection: {
-                allowedCountries: ['US', 'CH', 'FR', 'DE']
+                // Aligned with current shipping policy: Switzerland, Italy, France
+                allowedCountries: ['CH', 'IT', 'FR']
             }
         });
 
@@ -569,13 +570,53 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-function downloadManual() {
-    const link = document.createElement('a');
-    link.href = 'user_manual/LedLobe - User Manual.pdf';
-    link.download = 'LedLobe - User Manual.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+async function downloadManual() {
+    const manualFiles = [
+        'user_manual/user_manual1.png',
+        'user_manual/user_manual2.png'
+    ];
+
+    // Ensure JSZip is available; if not, load it dynamically
+    async function ensureJsZip() {
+        if (window.JSZip) return;
+        await new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+            script.onload = resolve;
+            script.onerror = reject;
+            document.head.appendChild(script);
+        });
+    }
+
+    try {
+        await ensureJsZip();
+        const zip = new JSZip();
+        const folder = zip.folder('LedLobe-User-Manual');
+
+        // Fetch and add each image to the zip
+        for (const path of manualFiles) {
+            const response = await fetch(path);
+            if (!response.ok) throw new Error(`Failed to fetch ${path}`);
+            const blob = await response.blob();
+            const arrayBuffer = await blob.arrayBuffer();
+            const filename = path.split('/').pop();
+            folder.file(filename, arrayBuffer);
+        }
+
+        const zipBlob = await zip.generateAsync({ type: 'blob' });
+        const url = URL.createObjectURL(zipBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'LedLobe-User-Manual.zip';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    } catch (error) {
+        console.error('Error preparing manual download:', error);
+        // Fallback: open images in new tabs
+        manualFiles.forEach(path => window.open(path, '_blank'));
+    }
 }
 
 // Function to load footer
